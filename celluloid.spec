@@ -79,11 +79,10 @@ fi
 %{_bindir}/%{name}
 %{_datadir}/metainfo/io.github.*.appdata.xml
 %{_datadir}/applications/io.github.*.desktop
-%{_datadir}/glib-2.0/schemas/io.github.*.gschema.xml
+%{_datadir}/glib-2.0/schemas/*.xml
 %{_datadir}/dbus-1/services/io.github.*.service
 %{_mandir}/man1/%{name}.*.gz
 # The old GSchema is left installed for settings migration.
-%{_datadir}/glib-2.0/schemas/org.*.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/*.svg
 
 
