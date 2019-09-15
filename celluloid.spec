@@ -3,12 +3,12 @@
 %global glib2_version 2.40
 %global gtk3_version 3.20
 %global mpv_version 0.25.0
-%global commit0 c47724b92742c63624c8dbe39cc2ca9d4bc8a79c
+%global commit0 2ce0aa29156deff54074dc9c20870539a47f3194
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           celluloid
 Version:        0.17
-Release:        4.git%{shortcommit0}%{?dist}
+Release:        8.git%{shortcommit0}%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPLv3+
@@ -87,6 +87,9 @@ fi
 
 
 %changelog
+
+* Sat Sep 14 2019 - David Va <davidva AT tuta DOT io> 0.17-8.gitc47724b
+- Updated to current commit
 
 * Mon Sep 09 2019 - David Va <davidva AT tuta DOT io> 0.17-7.gitc47724b
 - Updated to 0.17-7.gitc47724b
