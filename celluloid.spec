@@ -3,12 +3,12 @@
 %global glib2_version 2.40
 %global gtk3_version 3.20
 %global mpv_version 0.25.0
-%global commit0 2ce0aa29156deff54074dc9c20870539a47f3194
+%global commit0 6fca3f16616f4f46c1647fe4610e57c8c9ae74ff
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:           celluloid
 Version:        0.17
-Release:        8.git%{shortcommit0}%{?dist}
+Release:        9.git%{shortcommit0}%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPLv3+
@@ -87,6 +87,10 @@ fi
 
 
 %changelog
+
+* Mon Sep 23 2019 - David Va <davidva AT tuta DOT io> 0.17-9.git6fca3f1
+- Updated to current commit
+- Fixes around mpv crash when running keyup command without argum
 
 * Sat Sep 14 2019 - David Va <davidva AT tuta DOT io> 0.17-8.gitc47724b
 - Updated to current commit
