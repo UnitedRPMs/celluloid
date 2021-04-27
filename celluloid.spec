@@ -3,17 +3,21 @@
 %global glib2_version 2.40
 %global gtk3_version 3.20
 %global mpv_version 0.25.0
-%global commit0 9cfab0128cd9975e026aff464a17df57ab63ce2a
+%global commit0 c77fbeb297ad6121b774c4f8b01536bf500fce0d
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
+# Force out of source build
+%undefine __cmake_in_source_build
+
+
 Name:           celluloid
-Version:        0.20
+Version:        0.21
 Release:        7.git%{shortcommit0}%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPLv3+
 URL:            https://github.com/celluloid-player/celluloid
-Source0:  	https://github.com/celluloid-player/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0:  	https://github.com/celluloid-player/celluloid/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 
 # main dependencies
 BuildRequires:	meson
@@ -45,17 +49,18 @@ allowing access to mpv's powerful playback capabilities.
 %autosetup -n %{name}-%{commit0}
 
 %build
-    meson _build --buildtype=release --prefix=/usr
-    ninja-build -C _build
+meson _build --buildtype=release --prefix=/usr --libdir=%{_libdir} --libexecdir=/usr/libexec --bindir=/usr/bin --sbindir=/usr/sbin --includedir=/usr/include --datadir=/usr/share --mandir=/usr/share/man --infodir=/usr/share/info --localedir=/usr/share/locale --sysconfdir=/etc
+
+%meson_build -C _build
 
 %install
-env DESTDIR=%{buildroot} ninja -C _build install
+%meson_install -C _build 
 
 %find_lang %{name}
 
 %check
 #appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.*.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.*.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.celluloid_player.Celluloid.desktop
 
 %post
 /usr/bin/update-desktop-database &> /dev/null || :
@@ -77,17 +82,19 @@ fi
 %doc AUTHORS README.md
 %license COPYING
 %{_bindir}/%{name}
-%{_datadir}/metainfo/io.github.*.appdata.xml
-%{_datadir}/applications/io.github.*.desktop
+%{_datadir}/applications/*.desktop
+%{_datadir}/dbus-1/services/*.service
 %{_datadir}/glib-2.0/schemas/*.xml
-%{_datadir}/dbus-1/services/io.github.*.service
-%{_mandir}/man1/%{name}.*.gz
-# The old GSchema is left installed for settings migration.
-%{_datadir}/icons/hicolor/*/apps/*.svg
+%{_datadir}/icons/hicolor/scalable/apps/*.svg
+%{_datadir}/icons/hicolor/symbolic/apps/*.svg
+%{_mandir}/man1/celluloid*.gz
+%{_datadir}/metainfo/*.appdata.xml
 
 
 %changelog
 
+* Thu Apr 15 2021 - David Va <davidva AT tuta DOT io> 0.21-7.gitc77fbeb
+- Updated to 0.21
 
 * Mon Sep 21 2020 - David Va <davidva AT tuta DOT io> 0.20-7.git9cfab01
 - Updated to 0.20
