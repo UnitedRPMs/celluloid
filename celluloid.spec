@@ -1,9 +1,9 @@
 %global debug_package %{nil}
 
 %global glib2_version 2.40
-%global gtk3_version 3.20
+%global gtk4_version 3.0
 %global mpv_version 0.25.0
-%global commit0 c77fbeb297ad6121b774c4f8b01536bf500fce0d
+%global commit0 6cc8ad5444541c2a0bf028efeb01b1f1d7bcec4a
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Force out of source build
@@ -11,7 +11,7 @@
 
 
 Name:           celluloid
-Version:        0.21
+Version:        0.22
 Release:        7.git%{shortcommit0}%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
@@ -29,9 +29,11 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(appstream-glib)
 BuildRequires:  /usr/bin/desktop-file-validate
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(epoxy)
 BuildRequires:	pkgconfig(mpv) >= %{mpv_version}
+#Wtf?
+BuildRequires:	opus libogg libsndfile flac-libs
 #BuildRequires:  mpv-libs-devel mpv-libs
 BuildRequires:  intltool
 BuildRequires:  libappstream-glib-devel
@@ -92,6 +94,9 @@ fi
 
 
 %changelog
+
+* Fri Nov 12 2021 - David Va <davidva AT tuta DOT io> 0.22-7.git6cc8ad5
+- Updated to 0.22
 
 * Thu Apr 15 2021 - David Va <davidva AT tuta DOT io> 0.21-7.gitc77fbeb
 - Updated to 0.21
